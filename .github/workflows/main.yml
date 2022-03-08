@@ -25,8 +25,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        fetch-depth: 0
-        submodules: 'true'
+        fetch-depth: 1
+        submodules: true
 
     - name: hugo
       uses: klakegg/actions-hugo@1.0.0
