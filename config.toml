@@ -1,0 +1,23 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "The handy CIO"
+theme = "m10c"
+sectionPagesMenu = "main"
+
+[taxonomies]
+    category = "blog"
+    tag      = "tags"
+    series   = "series"
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name       = "About"
+    url        = "/about/"
+  [[menu.main]]
+    identifier = "posts"
+    name       = "Posts"
+    url        = "/posts/"
+  [[menu.main]]
+    identifier = "gdpr-tracker"
+    name       = "GDPR tracker"
+    url        = "/gdpr-tracker/"
