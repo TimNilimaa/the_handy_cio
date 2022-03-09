@@ -65,7 +65,9 @@ So just run one of those commands on the other node, and then do the very same f
 
 ### Storage
 
-![Love heart on rainbow red wood](/media/rainbow-love-heart-background-red-wood-60045149.jpg)
+The storage unit that I went with is an old but common Synology NAS. Just like the Intel NUC this isn't a very expensive peice of hardware nor is it production ready. From what I've read on other blogs, it might be possible to use dual NICs on the device as well as multiple devices to achieve high availability. Or you know, not host things like this on consumer grade products for production :)
+
+There are also more ways to secure this, but this wasn't so bad that I couldn't have this up for a week while trying if this worked and learned more about k8s. The alternative were to only use one node and local storage, but hey there is no fun in that.
 
 #### Configure NAS
 
