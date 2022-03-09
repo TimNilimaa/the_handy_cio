@@ -1,8 +1,30 @@
-baseURL = "http://example.org/"
+baseURL = "https://handycio.com/"
 languageCode = "en-us"
 title = "The handy CIO"
-theme = "m10c"
+theme = ["m10c", "matomo"]
 sectionPagesMenu = "main"
+custom_js = ["js/custom.js"]
+
+[params]
+  author = "Tim Nilimaa-Svärd"
+  description = "Just like an ordinary handyman that can do stuff can this CIO do stuff. Sometimes they work."
+  avatar = "media/avatar.jpg"
+  [[params.social]]
+    icon = "github"
+    name = "Github"
+    url = "https://github.com/timnilimaa"
+  [[params.social]]
+    icon = "twitter"
+    name = "Twitter"
+    url = "https://twitter.com/timnilimaa"
+  [[params.social]]
+    icon = "linkedin"
+    name = "LinkedIn"
+    url = "https://linkedin.com/in/TimNilimaa"
+
+[params.matomo]
+url = "https://stats.jag.se"
+id = 2
 
 [taxonomies]
     category = "blog"
@@ -19,5 +41,5 @@ sectionPagesMenu = "main"
     url        = "/posts/"
   [[menu.main]]
     identifier = "gdpr-tracker"
-    name       = "GDPR tracker"
+    name       = "GDPR-tracker"
     url        = "/gdpr-tracker/"
