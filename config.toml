@@ -1,6 +1,6 @@
 baseURL = "https://thehandycio.z1.web.core.windows.net/"
 languageCode = "en-us"
-title = "The handy CIO"
+title = "The Handy CIO"
 theme = ["m10c", "matomo"]
 sectionPagesMenu = "main"
 custom_js = ["js/custom.js"]
