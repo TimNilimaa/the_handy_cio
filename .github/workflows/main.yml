@@ -48,7 +48,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name thehandycio  --auth-mode key -d '$web' -s .
+            az storage blob upload-batch --account-name thehandycio  --auth-mode key -d '$web' -s upload/
     - name: logout
       run: |
             az logout
