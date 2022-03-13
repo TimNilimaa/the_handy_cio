@@ -7,8 +7,8 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+ # pull_request:
+ #   branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -33,7 +33,13 @@ jobs:
       with:
         version: ${{ matrix.version }}
         image: ${{ matrix.image }}
-        
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.0.0
+      with:
+    # Artifact name
+        name: public # optional, default is artifact
+    # A file, directory or wildcard pattern that describes what to upload
+        path: public/
     - name: Deploy
       uses: azure/login@v1
       with:
