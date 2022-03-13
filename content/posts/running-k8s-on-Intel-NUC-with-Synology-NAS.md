@@ -1,7 +1,7 @@
 ---
 title: Running microk8s on Intel NUC with Synology NAS
 date: 2022-03-02T09:55:56+01:00
-draft: true
+draft: false
 toc: false
 images: null
 tags:

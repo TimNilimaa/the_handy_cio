@@ -5,5 +5,7 @@
       "title": "media",
       "path": "[[workspace]]/static/media"
     }
-  ]
+  ],
+  "frontMatter.content.publicFolder": "static",
+  "frontMatter.framework.id": "hugo"
 }

@@ -1,4 +1,4 @@
-baseURL = "https://handycio.com/"
+baseURL = "https://thehandycio.z1.web.core.windows.net/"
 languageCode = "en-us"
 title = "The handy CIO"
 theme = ["m10c", "matomo"]
@@ -39,7 +39,3 @@ id = 2
     identifier = "posts"
     name       = "Posts"
     url        = "/posts/"
-  [[menu.main]]
-    identifier = "gdpr-tracker"
-    name       = "GDPR-tracker"
-    url        = "/gdpr-tracker/"
