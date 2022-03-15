@@ -18,4 +18,4 @@ helm repo update
 Install cert-manager with CustomResourceDefinitions. Make sure to get the latest version by checking in on https://artifacthub.io/packages/helm/cert-manager/cert-manager
 {{< highlight bash >}}
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.1/cert-manager.crds.yaml
-{{< / hightlight >}}
+{{< / highlight >}}
