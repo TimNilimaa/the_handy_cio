@@ -36,14 +36,15 @@ sudo snap install microk8s --classic --channel=1.23/stable
 {{< / highlight >}}
 Make sure it is up and running by waiting for it to be ready
 {{< highlight bash >}}
-microk8s status --wait-ready
+sudo microk8s status --wait-ready
 {{< / highlight >}}
 And then, fix so you don't have to sudo for kubectl
 {{< highlight bash >}}
-sudo usermod -a -G microk8s ubuntu
-sudo chown -f -R ubuntu ~/.kube
+sudo usermod -a -G microk8s <username> 
+sudo chown -f -R <username> ~/.kube
+newgrp microk8s
 {{< / highlight >}}
-I also made sure that DNS where enabled
+I also made sure that DNS were enabled
 {{< highlight bash >}}
 microk8s enable dns
 {{< / highlight >}}
@@ -53,13 +54,21 @@ For more information, read here: <https://ubuntu.com/tutorials/install-a-local-k
 
 To join additional nodes, run the following command on the primary node. It will tell you what to run on the next nodes.
 Taken from the Ubuntu web site, again they do have a decent instruction for this.
+You run the following command on the first node.
 {{< highlight bash >}}
-Join node with:
-microk8s join ip-172-31-20-243:25000/DDOkUupkmaBezNnMheTBqFYHLWINGDbf
+microk8s add-node
+{{< / highlight >}}
+It will tell you exactly what to do, it will look something like this
+{{< highlight bash >}}
+From the node you wish to join to this cluster, run the following:
+microk8s join 192.168.112.172:25000/d0fe312984a43a8fcbeccbbe5b6dd843/8f8557f74cc9
+
+Use the '--worker' flag to join a node as a worker not running the control plane, eg:
+microk8s join 192.168.112.172:25000/d0fe312984a43a8fcbeccbbe5b6dd843/8f8557f74cc9 --worker
 
 If the node you are adding is not reachable through the default interface you can use one of the following:
-microk8s join 10.1.84.0:25000/DDOkUupkmaBezNnMheTBqFYHLWINGDbf
-microk8s join 10.22.254.77:25000/DDOkUupkmaBezNnMheTBqFYHLWINGDbf
+microk8s join 192.168.112.172:25000/d0fe312984a43a8fcbeccbbe5b6dd843/8f8557f74cc9
+microk8s join 192.168.112.220:25000/d0fe312984a43a8fcbeccbbe5b6dd843/8f8557f74cc9
 {{< / highlight >}}
 So just run one of those commands on the other node, and then do the very same for the additional node(s).
 
