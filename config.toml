@@ -45,6 +45,8 @@ disableSitemap = false
 disable404     = true
 disableHugoGeneratorInject = false
 
+[author]
+  name = "Tim Nilimaa-Svärd"
 
 [params]
   dateform        = "Jan 2, 2006"
@@ -65,11 +67,21 @@ disableHugoGeneratorInject = false
   description = "The Handy CIO"
   keywords = "homepage, blog"
   images = [""]
+  [params.footer]
+    trademark = true
+    rss = true
+    copyright = true
+    author = true
 
+    topText = []
+    bottomText = [
+      "Powered by <a href=\"http://gohugo.io\">Hugo</a>",
+    ]
 [[params.social]]
   name = "twitter"
   url = "https://twitter.com/TimNilimaa"
 >>>>>>> 8f2b957 (init)
+
 
 [taxonomies]
     category = "blog"
