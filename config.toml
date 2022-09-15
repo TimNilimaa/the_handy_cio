@@ -1,33 +1,4 @@
-<<<<<<< HEAD
-baseURL = "https://thehandycio.z1.web.core.windows.net/"
-languageCode = "en-us"
-title = "The Handy CIO"
-theme = ["m10c", "matomo"]
-sectionPagesMenu = "main"
-custom_js = ["js/custom.js"]
-
-[params]
-  author = "Tim Nilimaa-Svärd"
-  description = "Just like an ordinary handyman that can do stuff can this CIO do stuff. Sometimes they work."
-  avatar = "media/avatar.jpg"
-  [[params.social]]
-    icon = "github"
-    name = "Github"
-    url = "https://github.com/timnilimaa"
-  [[params.social]]
-    icon = "twitter"
-    name = "Twitter"
-    url = "https://twitter.com/timnilimaa"
-  [[params.social]]
-    icon = "linkedin"
-    name = "LinkedIn"
-    url = "https://linkedin.com/in/TimNilimaa"
-
-[params.matomo]
-url = "https://stats.jag.se"
-id = 2
-=======
-baseURL = 'http://example.org/'
+baseURL = 'http://handycio.com/'
 languageCode = 'en-us'
 title = 'The Handy CIO'
 theme = 'hello-friend-ng'
@@ -80,24 +51,20 @@ disableHugoGeneratorInject = false
 [[params.social]]
   name = "twitter"
   url = "https://twitter.com/TimNilimaa"
->>>>>>> 8f2b957 (init)
-
 
 [taxonomies]
     category = "blog"
     tag      = "tags"
     series   = "series"
-<<<<<<< HEAD
 [menu]
   [[menu.main]]
     identifier = "about"
     name       = "About"
-    url        = "/about/"
+    url        = "/about"
   [[menu.main]]
-    identifier = "posts"
+    identifier = "blog"
     name       = "Posts"
-    url        = "/posts/"
-=======
+    url        = "/posts"
 
 [languages]
   [languages.en]
@@ -115,9 +82,3 @@ disableHugoGeneratorInject = false
     # path = "/img/your-example-logo.svg"
     # alt = "Your example logo alt text"
 
-  # And you can even create generic menu
-  [[menu.main]]
-    identifier = "blog"
-    name       = "Posts"
-    url        = "/posts"
->>>>>>> 8f2b957 (init)
