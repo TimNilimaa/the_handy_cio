@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 baseURL = "https://thehandycio.z1.web.core.windows.net/"
 languageCode = "en-us"
 title = "The Handy CIO"
@@ -25,11 +26,56 @@ custom_js = ["js/custom.js"]
 [params.matomo]
 url = "https://stats.jag.se"
 id = 2
+=======
+baseURL = 'http://example.org/'
+languageCode = 'en-us'
+title = 'The Handy CIO'
+theme = 'hello-friend-ng'
+
+paginate  = 10
+rssLimit  = 10  # Maximum number of items in the RSS feed.
+copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License." # This message is only used by the RSS template.
+
+enableRobotsTXT = true
+enableGitInfo   = true
+enableEmoji     = true
+enableMissingTranslationPlaceholders = false
+disableRSS     = false
+disableSitemap = false
+disable404     = true
+disableHugoGeneratorInject = false
+
+
+[params]
+  dateform        = "Jan 2, 2006"
+  dateformShort   = "Jan 2"
+  dateformNum     = "2006-01-02"
+  dateformNumTime = "2006-01-02 15:04"
+
+  # Subtitle for home
+  homeSubtitle = "Even a paper pusher can make the code compile"
+
+  # Set disableReadOtherPosts to true in order to hide the links to other posts.
+  disableReadOtherPosts = false
+
+  # Enable sharing buttons, if you like
+  enableSharingButtons = true
+
+  # Metadata mostly used in document's head
+  description = "The Handy CIO"
+  keywords = "homepage, blog"
+  images = [""]
+
+[[params.social]]
+  name = "twitter"
+  url = "https://twitter.com/TimNilimaa"
+>>>>>>> 8f2b957 (init)
 
 [taxonomies]
     category = "blog"
     tag      = "tags"
     series   = "series"
+<<<<<<< HEAD
 [menu]
   [[menu.main]]
     identifier = "about"
@@ -39,3 +85,27 @@ id = 2
     identifier = "posts"
     name       = "Posts"
     url        = "/posts/"
+=======
+
+[languages]
+  [languages.en]
+    title = "The Handy CIO"
+    subtitle = "Even a paper pusher can make the code compile"
+    keywords = ""
+    copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
+    readOtherPosts = "Read other posts"
+
+    [languages.en.params.logo]
+      logoText = "./update-org-it-strategy.sh"
+      logoHomeLink = "/"
+    # or
+    #
+    # path = "/img/your-example-logo.svg"
+    # alt = "Your example logo alt text"
+
+  # And you can even create generic menu
+  [[menu.main]]
+    identifier = "blog"
+    name       = "Posts"
+    url        = "/posts"
+>>>>>>> 8f2b957 (init)
