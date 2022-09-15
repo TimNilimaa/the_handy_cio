@@ -1,7 +1,7 @@
-baseURL = 'http://handycio.com/'
+baseURL = 'https://handycio.com/'
 languageCode = 'en-us'
 title = 'The Handy CIO'
-theme = 'hello-friend-ng'
+theme = ['hello-friend-ng']
 
 paginate  = 10
 rssLimit  = 10  # Maximum number of items in the RSS feed.
@@ -56,6 +56,7 @@ disableHugoGeneratorInject = false
     category = "blog"
     tag      = "tags"
     series   = "series"
+
 [menu]
   [[menu.main]]
     identifier = "about"
