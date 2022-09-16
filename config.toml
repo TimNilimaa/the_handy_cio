@@ -5,7 +5,7 @@ theme = ['hello-friend-ng']
 
 paginate  = 10
 rssLimit  = 10  # Maximum number of items in the RSS feed.
-copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License." # This message is only used by the RSS template.
+copyright = "This work is copyright protected https://handycio.com/license-terms" # This message is only used by the RSS template.
 
 enableRobotsTXT = true
 enableGitInfo   = true
@@ -26,7 +26,7 @@ disableHugoGeneratorInject = false
   dateformNumTime = "2006-01-02 15:04"
 
   # Subtitle for home
-  homeSubtitle = "Even a paper pusher can make the code compile"
+  homeSubtitle = "Even a paper pusher can make the code compile... at times"
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = false
@@ -72,7 +72,7 @@ disableHugoGeneratorInject = false
     title = "The Handy CIO"
     subtitle = "Even a paper pusher can make the code compile"
     keywords = ""
-    copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
+    copyright = '<a href="/license-terms" target="_blank" rel="noopener">License terms</a>'
     readOtherPosts = "Read other posts"
 
     [languages.en.params.logo]
