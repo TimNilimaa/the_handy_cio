@@ -1,7 +1,7 @@
 ---
 title: Running microk8s on Intel NUC with Synology NAS
 date: 2022-03-02T09:55:56+01:00
-draft: true
+draft: false
 toc: false
 images: null
 tags:
@@ -17,11 +17,11 @@ For small environments or environments used for test and development, a few (rel
 
 ## Instructions
 
-In this guide I used Ubuntu server 20.04 LTS. I had three Intel NUC of varying age that I could use and cramed them up with the most RAM that I could find laying around.
+In this guide I used Ubuntu server 20.04 LTS. I had three Intel NUC of varying age that I could use and crammed them up with the most RAM that I could find laying around.
 
 ### Environment
 
-During installation of the OS on the NUCs, I could configure them to use VLAN tags in order to provide both an internal network between them, access to the LAN as well as 'direct' access to Internet (just a little tiny firewall inbetween for at lest some security).
+During installation of the OS on the NUCs, I could configure them to use VLAN tags in order to provide both an internal network between them, access to the LAN as well as 'direct' access to Internet (just a little tiny firewall in between for at lest some security).
 
 ### Install microk8s
 
@@ -74,16 +74,178 @@ So just run one of those commands on the other node, and then do the very same f
 
 ### Storage
 
-The storage unit that I went with is an old but common Synology NAS. Just like the Intel NUC this isn't a very expensive peice of hardware nor is it production ready. From what I've read on other blogs, it might be possible to use dual NICs on the device as well as multiple devices to achieve high availability. Or you know, not host things like this on consumer grade products for production :)
+The storage unit that I went with is an old but common Synology NAS. Just like the Intel NUC this isn't a very expensive piece of hardware nor is it production ready. From what I've read on other blogs, it might be possible to use dual NICs on the device as well as multiple devices to achieve high availability. Or you know, not host things like this on consumer grade products for production :)
 
 There are also more ways to secure this, but this wasn't so bad that I couldn't have this up for a week while trying if this worked and learned more about k8s. The alternative were to only use one node and local storage, but hey there is no fun in that.
 
 #### Configure NAS
 
+Your Synology NAS must be configured with an account that have full permissions to use iSCSI.
+
 #### Synology CSI
+
+The folks over at Synology have made an open source project for their CSI and hosts it a GitHub. Their latest releases have been much better compared to the original version that they released. One of the issues, for us running this with microk8s, is that it doesn't support microk8s. But a friendly pull request should solve that. Any day now.
 
 ##### Clone repo
 
+My suggestion is to clone the repository, but you could ofcourse simply download a copy if you prefer that. This benefit of cloning is that with two simple commands you can get the updated fixes ('git fetch' and 'git pull').
+To clone the repository, execute the following command.
+{{< highlight bash >}}
+git clone https://github.com/SynologyOpenSource/synology-csi.git
+{{< / highlight >}}
+
 ##### Adjust for microk8s
 
-### Verify/Test
+While it probably should be possible to modify each node with a symlink to make the microk8s paths appear at the correct locations for a 'normal' Kubernetes installation, I never got that working in my testings, so I ended up modifying the CSI files.
+
+There are five paths that must be updated in node.yaml 
+
+node.yaml
+{{< highlight yaml >}}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: csi-node-sa
+  namespace: synology-csi
+
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: synology-csi-node-role
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "update"]
+  - apiGroups: [""]
+    resources: ["namespaces"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch", "update"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["volumeattachments"]
+    verbs: ["get", "list", "watch", "update"]
+
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: synology-csi-node-role
+  namespace: synology-csi
+subjects:
+  - kind: ServiceAccount
+    name: csi-node-sa
+    namespace: synology-csi
+roleRef:
+  kind: ClusterRole
+  name: synology-csi-node-role
+  apiGroup: rbac.authorization.k8s.io
+
+---
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: synology-csi-node
+  namespace: synology-csi
+spec:
+  selector:
+    matchLabels:
+      app: synology-csi-node
+  template:
+    metadata:
+      labels:
+        app: synology-csi-node
+    spec:
+      serviceAccount: csi-node-sa
+      hostNetwork: true
+      containers:
+        - name: csi-driver-registrar
+          securityContext:
+            privileged: true
+          imagePullPolicy: Always
+          image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.3.0
+          args:
+            - --v=5
+            - --csi-address=$(ADDRESS)                         # the csi socket path inside the pod
+            - --kubelet-registration-path=$(REGISTRATION_PATH) # the csi socket path on the host node
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+            - name: REGISTRATION_PATH
+              value: /var/snap/microk8s/common/var/lib/kubelet/plugins/csi.san.synology.com/csi.sock
+            - name: KUBE_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /csi
+            - name: registration-dir
+              mountPath: /registration
+        - name: csi-plugin
+          securityContext:
+            privileged: true
+          imagePullPolicy: IfNotPresent
+          image: synology/synology-csi:v1.0.1
+          args:
+            - --nodeid=$(KUBE_NODE_NAME)
+            - --endpoint=$(CSI_ENDPOINT)
+            - --client-info
+            - /etc/synology/client-info.yml
+            - --log-level=info
+          env:
+            - name: CSI_ENDPOINT
+              value: unix://csi/csi.sock
+            - name: KUBE_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - name: kubelet-dir
+              mountPath: /var/snap/microk8s/common/var/lib/kubelet
+              mountPropagation: "Bidirectional"
+            - name: plugin-dir
+              mountPath: /csi
+            - name: client-info
+              mountPath: /etc/synology
+              readOnly: true
+            - name: host-root
+              mountPath: /host
+            - name: device-dir
+              mountPath: /dev
+      volumes:
+        - name: kubelet-dir
+          hostPath:
+            path: /var/snap/microk8s/common/var/lib/kubelet
+            type: Directory
+        - name: plugin-dir
+          hostPath:
+            path: /var/snap/microk8s/common/var/lib/kubelet/plugins/csi.san.synology.com/
+            type: DirectoryOrCreate
+        - name: registration-dir
+          hostPath:
+            path: /var/snap/microk8s/common/var/lib/kubelet/plugins_registry
+            type: Directory
+        - name: client-info
+          secret:
+            secretName: client-info-secret
+        - name: host-root
+          hostPath:
+            path: /
+            type: Directory
+        - name: device-dir
+          hostPath:
+            path: /dev
+            type: Directory
+{{< / highlight >}}
+
+To get Microsoft SQL Server working, I also had to change storage-class.yaml to use btrfs
+{{< highlight yaml >}}
+fsType: 'btrfs'
+{{< / highlight >}}
+
+You'll find both files in the 'deploy/kubernetes/v1.20/' path.
