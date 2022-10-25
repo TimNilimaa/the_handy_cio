@@ -3,6 +3,8 @@ languageCode = 'en-us'
 title = 'The Handy CIO'
 theme = ['hello-friend-ng']
 
+googleAnalytics = 'G-MSPB5D4WGJ'
+
 paginate  = 10
 rssLimit  = 10  # Maximum number of items in the RSS feed.
 copyright = "This work is copyright protected https://handycio.com/license-terms" # This message is only used by the RSS template.
