@@ -1,7 +1,11 @@
 ---
 title: "Every Carbon Counts"
 date: 2022-10-25T07:11:47+02:00
-draft: true
+draft: false
+tags:
+  - 'carbon emission'
+  - 'green it'
+  - climate
 ---
 
 It seems as if we as a people like to count things. We count how many years we have lived on this blue green sphere, how many steps we take, calories we burn. Many have also been countin carbon (emission) for a long time. The interesting thing about numbers is that even small numbers become big (really big) if multiplied.
