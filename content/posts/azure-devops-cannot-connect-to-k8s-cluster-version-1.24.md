@@ -7,6 +7,8 @@ images:
 tags:
   - k8s
   - 'azure devops'
+  - aks
+  - 'azure devops pipelines'
 ---
 
 If you have a k8s cluster running or, if you have recently upgraded to, version 1.24 you'll notice that you cannot use the wizard to connect Azure DevOps to the k8s cluster. One example would be during the creation of an [Environment in Azure DevOps](https://learn.microsoft.com/en-us/azure/devops/pipelines/process/environments?view=azure-devops).
